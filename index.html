@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>CRUDs on Rails</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -24,8 +24,170 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				
+				<section>
+					<h1>CRUDs on Rails</h1>
+				</section>
+
+				<section>
+					<h1>What are CRUDs?</h1>
+					<ul>
+						<li>C - create</li>
+						<li>R - read</li>
+						<li>U - update</li>
+						<li>D - delete</li>
+					</ul>
+				</section>
+
+				<section>
+					<h1>Basic needs for every app</h1>
+					<p>So Rails offers a simple way to kickstart the process for you</p>
+				</section>
+
+				<section>
+					<h1>Scaffold</h1>
+					<p>
+						The scaffold generator creates a basic CRUD structure
+						for your app.
+					</p>
+				</section>
+
+				<section>
+					<h1>Calling scaffold</h1>
+					<pre><code data-trim data-noescape class="shell">
+						rails generate scaffold topic title:string description:text
+					</code></pre>
+				</section>
+
+				<section data-transition="fade-in">
+					<h1>Dissecting the command</h1>
+					<pre><code data-trim data-noescape class="shell">
+						<mark>rails generate scaffold</mark> topic title:string description:text
+					</code></pre>
+				</section>
+
+				<section data-transition="fade-in">
+					<h1>Dissecting the command</h1>
+					<pre><code data-trim data-noescape class="shell">
+						rails generate scaffold <mark>topic</mark> title:string description:text
+					</code></pre>
+				</section>
+
+				<section data-transition="fade-in">
+					<h1>Dissecting the command</h1>
+					<pre><code data-trim data-noescape class="shell">
+						rails generate scaffold topic <mark>title:string description:text</mark>
+					</code></pre>
+				</section>
+
+				<section>
+					<h1>What has happened?</h1>
+<pre><code data-trim data-noescape class="shell">
+invoke  active_record
+create    db/migrate/20161120235121_create_topics.rb
+create    app/models/topic.rb
+invoke  resource_route
+ route    resources :topics
+invoke  scaffold_controller
+create    app/controllers/topics_controller.rb
+invoke    erb
+create      app/views/topics
+create      app/views/topics/index.html.erb
+create      app/views/topics/edit.html.erb
+create      app/views/topics/show.html.erb
+create      app/views/topics/new.html.erb
+create      app/views/topics/_form.html.erb
+invoke    helper
+create      app/helpers/topics_helper.rb
+</code></pre>	  
+				</section>
+
+				<section data-transition="fade-in">
+					<h1>Run the migration</h1>
+					<pre><code data-trim data-noescape class="shell">
+$ rails db:migrate
+== 20161120235121 CreateTopics: migrating =====================================
+-- create_table(:topics)
+   -> 0.0015s
+== 20161120235121 CreateTopics: migrated (0.0016s) ============================						
+					</code></pre>
+				</section>
+
+				<section data-transition="fade-in">
+					<h1>What is a migration?</h1>
+					<pre><code data-trim data-noescape class="shell">
+class CreateTopics < ActiveRecord::Migration[5.0]
+  def change
+    create_table :topics do |t|
+      t.string :title
+      t.text :description
+
+      t.timestamps
+    end
+  end
+end												
+					</code></pre>
+				</section>
+
+				<section data-transition="fade-in">
+					<h1>Now let's start the server and look around</h1>
+					<pre><code data-trim data-noescape class="shell">
+rails server
+					</code></pre>
+					<p>
+						And open your browser at <a href="http://localhost:3000/">http://localhost:3000/</a>
+					</p>
+				</section>
+
+				<section data-transition="fade-in">
+					<h1>Rails Architecture</h1>
+					<p>
+						<img src="images/mvc.png">
+					</p>
+				</section>
+
+				<section>
+					<h1>Model</h1>
+					<p>
+						The models represent the data your application handles, mostly
+						stored at the database.
+					</p>
+				</section>
+
+				<section>
+					<h1>View</h1>
+					<p>
+						Views represent the pages your user sees and interact
+						with in your application.
+					</p>
+				</section>
+
+				<section>
+					<h1>Controller</h1>
+					<p>
+						Performs the bridging between views and models, showing and
+						collecting data from views and interacting with models.
+					</p>
+				</section>
+
+				<section>
+					<h1>Let's look at the files created</h1>
+					<p>Demo time!</p>
+				</section>
+
+				<section>
+					<h1>Partials are special</h1>
+					<p>
+						Partial views (views with names that start with _)
+						are meant to be reused by other main views in your 
+						app.
+					</p>
+				</section>
+
+				<section>
+					<h1>Now let's write some code!</h1>
+				</section>
+
 			</div>
 		</div>
 
